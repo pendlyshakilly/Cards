@@ -12,7 +12,7 @@ import { Login } from "features/auth/Login/Login";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <div>Hello world!</div>,
+    element: <App/>,
   },
   {
     path: "/login",
@@ -33,8 +33,8 @@ const root = createRoot(container);
 
 root.render(
   <Provider store={store}>
-    <RouterProvider router={router} />
-    <App />
+    <RouterProvider router={router}/>
+
   </Provider>
 );
 
