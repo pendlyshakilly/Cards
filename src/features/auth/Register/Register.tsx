@@ -6,6 +6,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { NavLink } from "react-router-dom";
+import FormEmail from "features/auth/FormEmail";
 
 
 type IFormInput = {
@@ -17,7 +18,8 @@ type IFormInput = {
 export const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const { control, handleSubmit, reset, register, formState: { errors } } = useForm({
+
+  const {register, control, handleSubmit, reset, formState: { errors } } = useForm({
     defaultValues: {
       email: "",
       password: "",
@@ -36,10 +38,10 @@ export const Register = () => {
       password
     }
     reset();
-    // dispatch(authThunks.register(payload));
+     dispatch(authThunks.register(payload));
   };
 
-  console.log('errors >> ', errors)
+
   const handleClickShowPassword = () => setShowPassword(prevState => !prevState);
   const handleClickShowConfirmPassword = () => setShowConfirmPassword(prevState => !prevState);
   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -47,32 +49,14 @@ export const Register = () => {
   };
 
 
+  console.log(register);
   return (
     <div className={s.container}>
       <Paper className={s.Paper}>
         <div><h1>Sign Up</h1></div>
         <form onSubmit={handleSubmit(onSubmit)} style={{display: 'flex', flexDirection: 'column'}}>
-          <Controller
-            name="email"
-            control={control}
-            render={({ field }) => {
-              console.log('field >> ', field)
-              return (<FormControl {...field} sx={{ m: 1, width: "347px" }} variant="standard">
-                <InputLabel htmlFor="component-helper">Email</InputLabel>
-                <Input
-                  {...register("email", { required: true })}
-                  id="component-helper"
-                  defaultValue=""
-                  aria-describedby="component-helper-text"
-                  aria-invalid={errors.email ? "true" : "false"}
-                />
-                {errors.email && <p role="alert" style={{color: 'red'}}>Title is required</p>}
-              </FormControl>)
-            } } />
-          <Controller
-            name="password"
-            control={control}
-            render={({ field }) => <FormControl {...field} sx={{ m: 1, width: "347px" }} variant="standard">
+          <FormEmail register={register} errors={errors}/>
+          <FormControl sx={{ m: 1, width: "347px" }} variant="standard">
               <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
               <Input
                 {...register("password", { required: true })}
@@ -90,12 +74,8 @@ export const Register = () => {
                 }
               />
               {errors.password ?.type === 'required' && <p role="alert" style={{color: 'red'}}>Title is required</p>}
-            </FormControl>}
-          />
-          <Controller
-            name="confirmPassword"
-            control={control}
-            render={({ field }) => <FormControl {...field} sx={{ m: 1, width: "347px" }} variant="standard">
+            </FormControl>
+         <FormControl sx={{ m: 1, width: "347px" }} variant="standard">
               <InputLabel htmlFor="standard-adornment-password" >Confirm Password</InputLabel>
               <Input
                 {...register("confirmPassword", { required: true })}
@@ -114,8 +94,7 @@ export const Register = () => {
                 }
               />
               {errors.confirmPassword ?.type === 'required' && <p role="alert" style={{color: 'red'}}>Title is required</p>}
-            </FormControl>}
-          />
+            </FormControl>
           <Button onClick={handleSubmit(onSubmit)} sx={{ m: 1, width: '347px', borderRadius: '30px', backgroundColor: '#366EFF'}} variant="contained">Sign Up</Button>
         </form>
         <div style={{textAlign: 'center'}} >
