@@ -22,7 +22,7 @@ function App() {
     <div className="App">
       {isLoading && <h1>Loader...</h1>}
       {/*<Counter />*/}
-  <Register/>
+ {/* <Register/>*/}
     </div>
   );
 }
