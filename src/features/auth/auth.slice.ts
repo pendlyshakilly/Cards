@@ -14,9 +14,6 @@ import { createAppAsyncThunk } from "common/utils/withTyeps";
 //     return { profile: res.data };
 //   });
 // });
-
-
-
 // const register = createAsyncThunk<void, ArgRegisterType1, {
 //   state: RootState
 //   dispatch: AppDispatch
@@ -40,7 +37,7 @@ import { createAppAsyncThunk } from "common/utils/withTyeps";
 const slice = createSlice({
   name: "auth",
   initialState: {
-    profile: null as ProfileType | null
+    profile: null as ProfileType | null,
   },
   reducers: {
     // setProfile: (state, action: PayloadAction<{ profile: ProfileType }>) => {
@@ -50,6 +47,7 @@ const slice = createSlice({
   extraReducers: builder => {
     builder.addCase(login.fulfilled, (state, action) => {
       state.profile = action.payload.profile;
+
     });
   }
 });
