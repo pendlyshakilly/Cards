@@ -1,5 +1,16 @@
 .container {
 	display: flex;
-	align-items: center;
+	margin: 0 auto;
 	gap: 10px;
+
+}
+
+.Paper{
+	display: flex;
+	width: 40%;
+	height: 60%;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	padding: 30px;
 }

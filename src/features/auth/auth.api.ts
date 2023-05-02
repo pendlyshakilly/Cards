@@ -17,7 +17,7 @@ export const authApi = {
 
 export type ArgLoginType = {
   email: string
-  password: string
+  password: string | number
   rememberMe:boolean
 }
 export type ArgRegisterType1 = Omit<ArgLoginType, 'rememberMe'>
