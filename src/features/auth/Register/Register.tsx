@@ -1,12 +1,12 @@
 import { useAppDispatch } from "app/hooks";
 import { authThunks } from "features/auth/auth.slice";
 import s from "features/auth/Register/styles.module.css";
-import { Button, FormControl, IconButton, Input, InputAdornment, InputLabel, Paper } from "@mui/material";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Button, Paper } from "@mui/material";
 import { useState } from "react";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { NavLink } from "react-router-dom";
-import FormEmail from "features/auth/FormEmail";
+import FormEmail from "features/auth/form/FormEmail";
+import FormPassword from "features/auth/form/FormPassword";
 
 
 type IFormInput = {
@@ -16,10 +16,9 @@ type IFormInput = {
 }
 
 export const Register = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+ const [error, setError] = useState(false)
 
-  const {register, control, handleSubmit, reset, formState: { errors } } = useForm({
+  const {register, handleSubmit, reset, formState: { errors } } = useForm({
     defaultValues: {
       email: "",
       password: "",
@@ -29,7 +28,11 @@ export const Register = () => {
   const dispatch = useAppDispatch();
 
   const onSubmit: SubmitHandler<IFormInput> = (data,e) => {
-
+    if (data.password !== data.confirmPassword){
+      setError(true)
+      return
+    }
+    setError(false)
     e && e.preventDefault();
     console.log(data);
     let {email, password} = data
@@ -42,59 +45,15 @@ export const Register = () => {
   };
 
 
-  const handleClickShowPassword = () => setShowPassword(prevState => !prevState);
-  const handleClickShowConfirmPassword = () => setShowConfirmPassword(prevState => !prevState);
-  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-
-  };
-
-
-  console.log(register);
   return (
     <div className={s.container}>
       <Paper className={s.Paper}>
         <div><h1>Sign Up</h1></div>
         <form onSubmit={handleSubmit(onSubmit)} style={{display: 'flex', flexDirection: 'column'}}>
           <FormEmail register={register} errors={errors}/>
-          <FormControl sx={{ m: 1, width: "347px" }} variant="standard">
-              <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
-              <Input
-                {...register("password", { required: true })}
-                id="standard-adornment-password"
-                type={showPassword ? "text" : "password"}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}>
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-              {errors.password ?.type === 'required' && <p role="alert" style={{color: 'red'}}>Title is required</p>}
-            </FormControl>
-         <FormControl sx={{ m: 1, width: "347px" }} variant="standard">
-              <InputLabel htmlFor="standard-adornment-password" >Confirm Password</InputLabel>
-              <Input
-                {...register("confirmPassword", { required: true })}
-                id="standard-adornment-password"
-                type={showConfirmPassword ? "text" : "password"}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowConfirmPassword}
-                      onMouseDown={handleMouseDownPassword}
-                    >
-                      {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-              {errors.confirmPassword ?.type === 'required' && <p role="alert" style={{color: 'red'}}>Title is required</p>}
-            </FormControl>
+          <FormPassword title={'Password'} register={register} errors={errors} type={'password'}/>
+          <FormPassword title={'Confirm Password'} register={register} errors={errors} type={'confirmPassword'}/>
+          {errors.confirmPassword ?.type !== 'required' && error && <p style={{color: 'red'}}>Password is not sync</p>}
           <Button onClick={handleSubmit(onSubmit)} sx={{ m: 1, width: '347px', borderRadius: '30px', backgroundColor: '#366EFF'}} variant="contained">Sign Up</Button>
         </form>
         <div style={{textAlign: 'center'}} >
