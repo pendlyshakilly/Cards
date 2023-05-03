@@ -1,0 +1,53 @@
+.Container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+}
+.Link{
+    position: absolute;
+    top: 78px;
+    left: 128px;
+    display: flex;
+    text-decoration: none;
+    color: black;
+}
+.Icon{
+    background-color: #808080;
+    color: white;
+    border-radius: 16px;
+    position: absolute;
+    width: 33px;
+    height: 28px;
+    text-align: center;
+    padding-top: 4px;
+    right: 2px;
+    bottom: 1px;
+}
+
+.img{
+    height: 96px;
+    width: 96px;
+    left: 593px;
+    top: 204px;
+    border-radius: 55%;
+}
+
+.Paper{
+    font-family: 'Montserrat';
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 408px;
+    width: 413px;
+}
+
+.title{
+    margin: 0 auto;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 27px;
+    letter-spacing: 0em;
+}

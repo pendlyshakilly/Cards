@@ -1,9 +1,12 @@
-import { Counter } from "features/counter/Counter";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "app/hooks";
 import { appActions } from "app/app.slice";
+
 import { Register } from "features/auth/Register/Register";
 import { Link } from "react-router-dom";
+
+import Profile from "features/profile/Profile";
+
 
 function App() {
   const isLoading = useAppSelector((state) => state.app.isLoading);
@@ -29,6 +32,7 @@ function App() {
       {<Link to={'/create-new-password'}> CreatePass</Link>}
       {/*<Counter />*/}
  {/* <Register/>*/}
+      <Profile/>
     </div>
   );
 }
