@@ -20,7 +20,7 @@ import Paper from "@mui/material/Paper";
 export const Login = () => {
 
 		const profile = useAppSelector(state => state.auth.profile);
-		const isLogged = useAppSelector(state => state.auth.isLogged);
+
 		const dispatch = useAppDispatch();
 		const loginHandler = () => {
 				const payload = {
