@@ -1,7 +1,8 @@
 import { useAppDispatch } from "app/hooks";
 import { authThunks } from "features/auth/auth.slice";
 import s from "features/auth/Register/styles.module.css";
-import { Button, Paper } from "@mui/material";
+import  Button from "@mui/material/Button";
+import  Paper from "@mui/material/Paper";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { NavLink } from "react-router-dom";
