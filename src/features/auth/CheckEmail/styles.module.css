@@ -1,0 +1,38 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    gap: 10px;
+    height: 100vh;
+}
+
+.Paper {
+    display: flex;
+    width: 413px;
+    height: 408px;
+    padding: 8px;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.img img{
+    margin-top: 11px;
+    width: 160px;
+    height: 115px;
+}
+.description{
+    margin: 21px 0px 0px 0px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    text-align: center;
+    color: #000000;
+    opacity: 0.5;
+}
+.description p{
+    margin: 0;
+}

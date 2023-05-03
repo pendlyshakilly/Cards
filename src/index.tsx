@@ -8,6 +8,9 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Register } from "features/auth/Register/Register";
 import { Login } from "features/auth/Login/Login";
+import {ForgotPassword} from "features/auth/ForgotPassword/ForgotPassword";
+import {CheckEmail} from "features/auth/CheckEmail/CheckEmail";
+import { CreateNewPassword } from "features/auth/CreateNewPassword/CreateNewPassword";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +28,18 @@ const router = createBrowserRouter([
   {
     path: "/packs",
     element: <h1>Packs</h1>,
+  },
+  {
+    path: "/forgot-password",
+    element: <ForgotPassword/>,
+  },
+  {
+    path: "/check-email",
+    element: <CheckEmail/>,
+  },
+  {
+    path: "/create-new-password",
+    element: <CreateNewPassword/>,
   },
 ]);
 

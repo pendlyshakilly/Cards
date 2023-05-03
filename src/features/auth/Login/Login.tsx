@@ -18,7 +18,7 @@ export const Login = () => {
 		const navigate = useNavigate();
 
 		const { register, handleSubmit, reset, formState: { errors } } = useForm<ArgLoginType>({
-				mode: "onChange"
+				// mode: "onChange"
 		});
 
 		const onSubmit = (data: ArgLoginType) => {
