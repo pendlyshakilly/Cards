@@ -8,11 +8,14 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Register } from "features/auth/Register/Register";
 import { Login } from "features/auth/Login/Login";
-import {ForgotPassword} from "features/auth/ForgotPassword/ForgotPassword";
-import {CheckEmail} from "features/auth/CheckEmail/CheckEmail";
+import { ForgotPassword } from "features/auth/ForgotPassword/ForgotPassword";
+import { CheckEmail } from "features/auth/CheckEmail/CheckEmail";
 import { CreateNewPassword } from "features/auth/CreateNewPassword/CreateNewPassword";
+import Profile from "features/profile/Profile";
+
 
 const router = createBrowserRouter([
+
   {
     path: "/",
     element: <App/>,
@@ -38,8 +41,12 @@ const router = createBrowserRouter([
     element: <CheckEmail/>,
   },
   {
-    path: "/create-new-password",
+    path: "/create-new-password/:token",
     element: <CreateNewPassword/>,
+  },
+  {
+    path: "/profile",
+    element: <Profile/>,
   },
 ]);
 

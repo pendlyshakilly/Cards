@@ -1,22 +1,20 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "app/hooks";
-import { appActions } from "app/app.slice";
-
-import { Register } from "features/auth/Register/Register";
-import { Link } from "react-router-dom";
-
-import Profile from "features/profile/Profile";
+import { Link, useNavigate } from "react-router-dom";
+import { authThunks } from "features/auth/auth.slice";
 
 
 function App() {
-  const isLoading = useAppSelector((state) => state.app.isLoading);
 
+  const isLoading = useAppSelector((state) => state.app.isLoading);
+    const navigate = useNavigate()
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    setTimeout(() => {
-      dispatch(appActions.setIsLoading({ isLoading: false }));
-    }, 3000);
+   dispatch(authThunks.authMeAPI()).then(()=>{
+   return   navigate('/profile')
+   },)
+
   }, []);
 
   //Login test
@@ -30,11 +28,14 @@ function App() {
       {<Link to={'/forgot-password'}> forgot</Link>}
       {<Link to={'/check-email'}> checkMail</Link>}
       {<Link to={'/create-new-password'}> CreatePass</Link>}
+      {<Link to={'/profile'}> Profile</Link>}
       {/*<Counter />*/}
  {/* <Register/>*/}
-      <Profile/>
+
     </div>
   );
 }
+
+
 
 export default App;

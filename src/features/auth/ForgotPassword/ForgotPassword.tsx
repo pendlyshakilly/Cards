@@ -1,19 +1,34 @@
 import Paper from "@mui/material/Paper";
-import React from "react";
+import React, { useEffect } from "react";
 import s from "./styles.module.css";
 import FormEmail from "features/auth/form/FormEmail";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { ButtonForAuth } from "features/auth/ButtonForAuth/ButtonForAuth";
+import { authThunks } from "features/auth/auth.slice";
+import { useAppDispatch, useAppSelector } from "app/hooks";
 
+export let valueEmail: string;
 export const ForgotPassword = () => {
+
 		const { register, handleSubmit, reset, formState: { errors } } = useForm<any>({
 				// mode: "onChange"
 		});
+		const dispatch = useAppDispatch();
+		const isAuth = useAppSelector(state => state.auth.isAuth);
+		const navigate = useNavigate();
 
-		const onSubmit = (data: any) => {
-				console.log(data);
-				reset();
+
+		useEffect(() => {
+				if (isAuth) {
+						return navigate("/check-email");
+				}
+		}, [isAuth]);
+
+
+		const onSubmit = (data: { email: string }) => {
+				dispatch(authThunks.forgotPassword(data.email));
+				valueEmail = data.email;
 		};
 
 
