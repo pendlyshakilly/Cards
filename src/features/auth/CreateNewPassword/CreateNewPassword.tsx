@@ -1,17 +1,37 @@
 import Paper from "@mui/material/Paper";
-import React from "react";
-import s from './styles.module.css'
+import React, { useEffect } from "react";
+import s from "./styles.module.css";
 import { useForm } from "react-hook-form";
 import FormPassword from "features/auth/form/FormPassword";
 import { ButtonForAuth } from "features/auth/ButtonForAuth/ButtonForAuth";
+import { useAppDispatch, useAppSelector } from "app/hooks";
+import { useNavigate, useParams } from "react-router-dom";
+import { authThunks } from "features/auth/auth.slice";
 
 export const CreateNewPassword = () => {
+		const dispatch = useAppDispatch();
+		const isAuth = useAppSelector(state => state.auth.isAuth);
+		const navigate = useNavigate();
+		const { token }  = useParams()
+
+
+		useEffect(() => {
+				if (isAuth) {
+						return navigate("/login");
+				}
+		}, [isAuth]);
+
+
 		const { register, handleSubmit, reset, formState: { errors } } = useForm<any>({
 
 		});
 
-		const onSubmit = (data: any) => {
-				console.log(data);
+		const onSubmit = (data: { password:string }) => {
+				const payload = {
+						password: data.password,
+						resetPasswordToken: token
+				}
+			 dispatch(authThunks.createPassword(payload))
 				reset();
 		};
 

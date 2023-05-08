@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ArgLoginType, ArgRegisterType1, authApi, ProfileType } from "features/auth/auth.api";
-import { AppDispatch, RootState } from "app/store";
+import { ArgLoginType, ArgRegisterType1, authApi, CreatePassType, ProfileType } from "features/auth/auth.api";
 import { createAppAsyncThunk } from "common/utils/withTyeps";
 
 
@@ -35,35 +34,123 @@ import { createAppAsyncThunk } from "common/utils/withTyeps";
 // });
 
 const slice = createSlice({
-  name: "auth",
-  initialState: {
-    profile: null as ProfileType | null,
-  },
-  reducers: {
-    // setProfile: (state, action: PayloadAction<{ profile: ProfileType }>) => {
-    //   state.profile = action.payload.profile;
-    // }
-  },
-  extraReducers: builder => {
-    builder.addCase(login.fulfilled, (state, action) => {
-      state.profile = action.payload.profile;
+		name: "auth",
+		initialState: {
+				profile: null as ProfileType | null,
+				isAuth: false
+		},
+		reducers: {
 
-    });
-  }
+				isAuthMe: (state, action: PayloadAction<{ isAuth: boolean }>) => {
+						state.isAuth = true;
+				}
+				// setProfile: (state, action: PayloadAction<{ profile: ProfileType }>) => {
+				//   state.profile = action.payload.profile;
+				// }
+		},
+		extraReducers: builder => {
+				builder
+					.addCase(login.fulfilled, (state, action) => {
+							state.profile = action.payload.profile;
+					})
+					.addCase(logOut.fulfilled, (state, action) => {
+							state.profile = null;
+					})
+					.addCase(authMeAPI.fulfilled, (state, action) => {
+						state.profile = action.payload.profile;
+				})
+
+		}
 });
 
-const register = createAppAsyncThunk<void, ArgRegisterType1>
-("auth/register", async (arg) => {
-  await authApi.register(arg);
-});
 
+//
+// const register = createAppAsyncThunk<void, ArgRegisterType1>
+// ("auth/register", async (arg) => {
+//   await authApi.register(arg);
+//
+// });
+const register = createAsyncThunk("auth/register", (arg: ArgRegisterType1, thunkAPI) => {
+		const { dispatch } = thunkAPI;
+		return authApi.register(arg)
+			.then((res) => {
+					if (res.data.addedUser) dispatch(isAuthMe({ isAuth: true }));
+			});
+});
 
 const login = createAppAsyncThunk<{ profile: ProfileType }, ArgLoginType>
 ("auth/login", async (arg, thunkAPI) => {
-  const res = await authApi.login(arg);
-  return { profile: res.data };
+		const res = await authApi.login(arg);
+		return { profile: res.data };
+
+
+});
+
+const forgotPassword = createAppAsyncThunk<any, string>
+("auth/forgotPassword", async (arg, thunkAPI) => {
+		const { dispatch } = thunkAPI;
+		const whereLetter = {
+				email: arg,
+				from: "test-front-admin <ai73a@yandex.by>",
+				message: `<div style="background-color: cornflowerblue; padding: 15px">password recovery link: 
+											<a href="http://localhost:3000/create-new-password/$token$">link</a></div>`
+		};
+		const res = await authApi.forgotPassword(whereLetter);
+		dispatch(isAuthMe({ isAuth: true }));
+		console.log(res);
+		return { res};
+});
+
+const createPassword = createAppAsyncThunk<void, CreatePassType>
+("auth/createPassword", async (arg, thunkAPI) => {
+		const { dispatch } = thunkAPI;
+		await authApi.createPassword(arg);
+		dispatch(isAuthMe({ isAuth: true }));
+});
+
+const logOut = createAppAsyncThunk<void, void>
+("auth/logOut", async () => {
+		await authApi.logOut();
+});
+
+const updateDataProfile = createAppAsyncThunk<void, string>
+("auth/updateDataProfile", async (arg, thunkAPI) => {
+		const payload = {
+				name: arg,
+				avatar: "https//avatar-url.img" // url or base64
+		};
+		const res = await authApi.updateDataProfile(payload);
+		console.log(res);
+		await authApi.updateDataProfile(payload);
+});
+
+const authMeAPI = createAppAsyncThunk<{ profile:ProfileType }, void>("auth/authMeAPI", async () => {
+		const res = await authApi.authMe();
+		console.log(res);
+		await authApi.authMe();
+return {profile : res.data}
+
 });
 
 export const authReducer = slice.reducer;
+export const { isAuthMe } = slice.actions;
 // export const authAction = slice.actions;
-export const authThunks = { register, login };
+export const authThunks = {
+		register,
+		login,
+		forgotPassword,
+		createPassword,
+		logOut,
+		updateDataProfile,
+		authMeAPI
+};
+//
+// export const isAuthTC = ()=> (dispatch:Dispatch)=>{
+//   dispatch(isAuthMe({isAuth:true}))
+//   authApi.authMe({})
+//     .then((res)=>{
+//       debugger
+//       console.log(res);
+//       dispatch(isAuthMe({isAuth:true}))
+//     })
+// }

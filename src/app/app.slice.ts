@@ -3,7 +3,7 @@ import { createSlice, current, PayloadAction } from "@reduxjs/toolkit";
 
 const appInitialState = {
   error: null as string | null,
-  isLoading: true,
+  isLoading: false,
   isAppInitialized: false,
   users: []
 };

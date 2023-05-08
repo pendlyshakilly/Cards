@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "app/hooks";
 import { authThunks } from "features/auth/auth.slice";
 import styled from "./Login.module.css";
@@ -14,19 +14,25 @@ import FormPassword from "features/auth/form/FormPassword";
 export const Login = () => {
 
 		const profile = useAppSelector(state => state.auth.profile);
+		const isAuth = useAppSelector(state => state.auth.isAuth);
 		const dispatch = useAppDispatch();
 		const navigate = useNavigate();
 
 		const { register, handleSubmit, reset, formState: { errors } } = useForm<ArgLoginType>({
 				// mode: "onChange"
 		});
+		useEffect(()=>{
+				if(profile){
+					return 	 navigate('/profile')
+				}
+		},[profile])
 
 		const onSubmit = (data: ArgLoginType) => {
 				dispatch(authThunks.login(data));
 				reset();
 		};
 
-		profile !== null && navigate("/");
+		// profile !== null && navigate("/");
 		return (
 			<>
 					<Paper style={{ width: "413px", margin: "0 auto" }} elevation={2}>
