@@ -4,9 +4,10 @@ import Button from "@mui/material/Button";
 type ButtonForAuthType = {
 		title: string
 		callback: () => void
+
 }
 
-export const ButtonForAuth: FC<ButtonForAuthType> = ({ title,callback }) => {
+export const ButtonForAuth: FC<ButtonForAuthType> = ({ title,callback, }) => {
 		const styleBtn = {
 				m: 1,
 				width: "347px",
@@ -18,7 +19,7 @@ export const ButtonForAuth: FC<ButtonForAuthType> = ({ title,callback }) => {
 
 		return (
 			<div>
-					<Button onClick={callback} sx={styleBtn} variant="contained">{title}</Button>
+					<Button onClick={callback}  sx={styleBtn} variant="contained">{title}</Button>
 			</div>
 		);
 };

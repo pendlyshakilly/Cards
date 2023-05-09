@@ -14,7 +14,6 @@ import { useAppDispatch, useAppSelector } from "app/hooks";
 import { authThunks } from "features/auth/auth.slice";
 
 const Profile = () => {
-		debugger
 		const dispatch = useAppDispatch();
 		const navigate = useNavigate();
 		const isAuth = useAppSelector(state => state.auth.isAuth);
@@ -22,12 +21,18 @@ const Profile = () => {
 		const [editMode, setEditMode] = useState(false);
 		const [name, setName] = useState(profile?.name as string);
 
+		useEffect(() => {
+				debugger
+				if (profile === null) {
+						return navigate("/login");
+				}
+		}, [profile]);
 		// useEffect(() => {
-		// 		debugger
-		// 		if (profile === null) {
-		// 				return navigate("/login");
-		// 		}
-		// }, [profile]);
+		//
+		// 		dispatch(authThunks.authMeAPI()).then((res) => {
+		// 				console.log(res);
+		// 		});
+		// }, []);
 
 
 		const onClickHandler = () => {
@@ -43,9 +48,6 @@ const Profile = () => {
 		};
 
 
-		// if(!isAuth){
-		// 		return <Navigate to={'/login'}/>
-		// 		}
 
 		return (
 			<div className={s.Container}>

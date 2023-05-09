@@ -1,7 +1,7 @@
 import Paper from "@mui/material/Paper";
 import React from "react";
 import s from "./styles.module.css";
-import image from "features/auth/CheckEmail/letter.png";
+import image from "assets/img/letter.png";
 import { ButtonForAuth } from "features/auth/ButtonForAuth/ButtonForAuth";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "app/hooks";
