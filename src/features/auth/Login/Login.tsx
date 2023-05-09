@@ -21,18 +21,19 @@ export const Login = () => {
 		const { register, handleSubmit, reset, formState: { errors } } = useForm<ArgLoginType>({
 				// mode: "onChange"
 		});
-		useEffect(()=>{
-				if(profile){
-					return 	 navigate('/profile')
-				}
-		},[profile])
+		// useEffect(()=>{
+		// 		if(profile){
+		// 			return 	 navigate('/profile')
+		// 		}
+		// },[profile])
 
 		const onSubmit = (data: ArgLoginType) => {
 				dispatch(authThunks.login(data));
 				reset();
 		};
 
-		// profile !== null && navigate("/");
+
+		profile !== null && navigate("/profile");
 		return (
 			<>
 					<Paper style={{ width: "413px", margin: "0 auto" }} elevation={2}>

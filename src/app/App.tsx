@@ -1,20 +1,27 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "app/hooks";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { authThunks } from "features/auth/auth.slice";
+import { Routing } from "common/components/routing/Routing";
+import { HeaderBar } from "common/components/HeaderBar/HeaderBar";
 
 
 function App() {
 
   const isLoading = useAppSelector((state) => state.app.isLoading);
-    const navigate = useNavigate()
+  // const navigate = useNavigate()
   const dispatch = useAppDispatch();
-
+  //
+  // useEffect(() => {
+  //  dispatch(authThunks.authMeAPI()).then(()=>{
+  //  return   navigate('/profile')
+  //  },)
+  //
+  // }, []);
   useEffect(() => {
-   dispatch(authThunks.authMeAPI()).then(()=>{
-   return   navigate('/profile')
-   },)
-
+    dispatch(authThunks.authMeAPI()).then((res) => {
+     return <Navigate to={'/profile'}/>
+    });
   }, []);
 
   //Login test
@@ -22,6 +29,8 @@ function App() {
 
   return (
     <div className="App">
+      <HeaderBar/>
+        <Routing/>
       {isLoading && <h1>Loader...</h1>}
       {<Link to={'/register'}> Register</Link>}
       {<Link to={'/login'}> login</Link>}

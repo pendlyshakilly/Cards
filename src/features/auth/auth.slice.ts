@@ -37,7 +37,8 @@ const slice = createSlice({
 		name: "auth",
 		initialState: {
 				profile: null as ProfileType | null,
-				isAuth: false
+				isAuth: false,
+				loading: false
 		},
 		reducers: {
 
@@ -52,13 +53,16 @@ const slice = createSlice({
 				builder
 					.addCase(login.fulfilled, (state, action) => {
 							state.profile = action.payload.profile;
+							state.isAuth = action.payload.isAuth;
 					})
 					.addCase(logOut.fulfilled, (state, action) => {
 							state.profile = null;
+							state.isAuth = action.payload.isAuth;
 					})
 					.addCase(authMeAPI.fulfilled, (state, action) => {
-						state.profile = action.payload.profile;
-				})
+							state.profile = action.payload.profile;
+							state.isAuth = action.payload.isAuth;
+					});
 
 		}
 });
@@ -78,10 +82,11 @@ const register = createAsyncThunk("auth/register", (arg: ArgRegisterType1, thunk
 			});
 });
 
-const login = createAppAsyncThunk<{ profile: ProfileType }, ArgLoginType>
+const login = createAppAsyncThunk<{ profile: ProfileType, isAuth: boolean }, ArgLoginType>
 ("auth/login", async (arg, thunkAPI) => {
+		debugger
 		const res = await authApi.login(arg);
-		return { profile: res.data };
+		return { profile: res.data, isAuth: true };
 
 
 });
@@ -98,7 +103,7 @@ const forgotPassword = createAppAsyncThunk<any, string>
 		const res = await authApi.forgotPassword(whereLetter);
 		dispatch(isAuthMe({ isAuth: true }));
 		console.log(res);
-		return { res};
+		return { res };
 });
 
 const createPassword = createAppAsyncThunk<void, CreatePassType>
@@ -108,9 +113,10 @@ const createPassword = createAppAsyncThunk<void, CreatePassType>
 		dispatch(isAuthMe({ isAuth: true }));
 });
 
-const logOut = createAppAsyncThunk<void, void>
+const logOut = createAppAsyncThunk<{ isAuth:boolean }, void>
 ("auth/logOut", async () => {
 		await authApi.logOut();
+		return{isAuth:false}
 });
 
 const updateDataProfile = createAppAsyncThunk<void, string>
@@ -124,11 +130,11 @@ const updateDataProfile = createAppAsyncThunk<void, string>
 		await authApi.updateDataProfile(payload);
 });
 
-const authMeAPI = createAppAsyncThunk<{ profile:ProfileType }, void>("auth/authMeAPI", async () => {
+const authMeAPI = createAppAsyncThunk<{ profile: ProfileType, isAuth: boolean }, void>("auth/authMeAPI", async () => {
 		const res = await authApi.authMe();
 		console.log(res);
-		await authApi.authMe();
-return {profile : res.data}
+		// await authApi.authMe();
+		return { profile: res.data, isAuth: true };
 
 });
 
