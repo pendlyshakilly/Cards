@@ -18,7 +18,6 @@ const Packs = () => {
 							<div style={{width: '97%', marginTop: '20px'}}>
                <Tables/>
 							</div>
-
 							</div>
 							<div style={{margin: '9px 0px 0px 10px'}}>
 									<CustomPagination/>

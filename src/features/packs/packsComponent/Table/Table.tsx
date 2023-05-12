@@ -32,41 +32,45 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 
 export default function Tables() {
-		const dispatch = useAppDispatch()
+		const dispatch = useAppDispatch();
 		const cards = useAppSelector<any>(state => state.packs.data);
-		const [filterMode, setFilterMode] = useState({name: true, cards: true, lastUpdate: true});
-		let style = {cursor: "pointer"};
+		const [filterMode, setFilterMode] = useState({ name: true, cards: true, lastUpdate: true });
+		const [initialized, setInitialized] = useState(false)
+		let style = { cursor: "pointer" };
 
 		useEffect(() => {
-         if (!filterMode.name){
-						 dispatch(setSortMode(`sortPacks=0name`))
-						 dispatch(packsThunks.getPacksWithParam())
-				 }
-				 else {
-						 dispatch(setSortMode(null))
-						 dispatch(packsThunks.getPacksWithParam())
-				 }
-		}, [filterMode.name])
+				if (initialized) {
+						if (!filterMode.name) {
+								dispatch(setSortMode(`sortPacks=0name`));
+								dispatch(packsThunks.getPacksWithParam());
+						} else {
+								dispatch(setSortMode(`sortPacks=1name`));
+								dispatch(packsThunks.getPacksWithParam());
+						}
+				} else return;
+		}, [filterMode.name]);
 		useEffect(() => {
-         if (!filterMode.cards){
-						 dispatch(setSortMode(`sortPacks=0cardsCount`))
-						 dispatch(packsThunks.getPacksWithParam())
-				 }
-				 else {
-						 dispatch(setSortMode(null))
-						 dispatch(packsThunks.getPacksWithParam())
-				 }
-		}, [filterMode.cards])
+				if (initialized) {
+						if (!filterMode.cards) {
+								dispatch(setSortMode(`sortPacks=0cardsCount`));
+								dispatch(packsThunks.getPacksWithParam());
+						} else {
+								dispatch(setSortMode(`sortPacks=1cardsCount`));
+								dispatch(packsThunks.getPacksWithParam());
+						}
+				} else return;
+		}, [filterMode.cards]);
 		useEffect(() => {
-         if (!filterMode.lastUpdate){
-						 dispatch(setSortMode(`sortPacks=0updated`))
-						 dispatch(packsThunks.getPacksWithParam())
-				 }
-				 else {
-						 dispatch(setSortMode(null))
-						 dispatch(packsThunks.getPacksWithParam())
-				 }
-		}, [filterMode.lastUpdate])
+				if (!filterMode.cards) {
+						if (!filterMode.lastUpdate) {
+								dispatch(setSortMode(`sortPacks=0updated`));
+								dispatch(packsThunks.getPacksWithParam());
+						} else {
+								dispatch(setSortMode(`sortPacks=1updated`));
+								dispatch(packsThunks.getPacksWithParam());
+						}
+				} else return;
+		}, [filterMode.lastUpdate]);
 
 		return (
 			<TableContainer component={Paper}>
@@ -75,14 +79,26 @@ export default function Tables() {
 									<TableRow>
 											<StyledTableCell><span
 												className={filterMode.name ? s.styledTableCellDown : s.styledTableCellUp}
-												onClick={() => setFilterMode({...filterMode, name: !filterMode.name})}
+												onClick={() => {
+														setInitialized(true)
+														setFilterMode({ ...filterMode, name: !filterMode.name })
+												}}
 												style={style}>Name</span></StyledTableCell>
 											<StyledTableCell align="right"><span
 												className={filterMode.cards ? s.styledTableCellDown : s.styledTableCellUp} style={style}
-												onClick={() => setFilterMode({...filterMode, cards: !filterMode.cards})}>Cards</span></StyledTableCell>
+												onClick={() => {
+														setFilterMode({
+																...filterMode,
+																cards: !filterMode.cards
+														})
+														setInitialized(true)
+												}}>Cards</span></StyledTableCell>
 											<StyledTableCell align="right"><span
 												className={filterMode.lastUpdate ? s.styledTableCellDown : s.styledTableCellUp}
-												onClick={() => setFilterMode({...filterMode, lastUpdate: !filterMode.lastUpdate})}
+												onClick={() => {
+														setInitialized(true)
+														setFilterMode({ ...filterMode, lastUpdate: !filterMode.lastUpdate })
+												}}
 												style={style}>Last Update</span></StyledTableCell>
 											<StyledTableCell align="right"><span
 												style={style}>Created by</span></StyledTableCell>

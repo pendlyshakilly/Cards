@@ -4,7 +4,6 @@ import { Link, Navigate } from "react-router-dom";
 import { authThunks } from "features/auth/auth.slice";
 import { Routing } from "common/components/routing/Routing";
 import { HeaderBar } from "common/components/HeaderBar/HeaderBar";
-import Packs from "features/packs/packsComponent/Packs";
 
 
 function App() {
