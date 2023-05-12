@@ -2,29 +2,30 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import { IconButton, InputBase, Paper } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import useDebounce from "common/utils/UseDebounce";
-import { useAppDispatch } from "app/hooks";
-import { getPacks, setPackName } from "features/packs/packs.slice";
+import { useAppDispatch, useAppSelector } from "app/hooks";
+import { packsThunks, setPackName } from "features/packs/packs.slice";
 
 
 const SearchInput = () => {
-		const [value, setValue] = useState<string>("");
-		const debouncedValue = useDebounce<string>(value, 1000);
+		const StateValue = useAppSelector(state => state.packs.packName);
+		const [value, setValue] = useState<string | null>(StateValue);
+		const debouncedValue = useDebounce<string | null>(value, 1000);
 		const dispatch = useAppDispatch();
 
+
 		useEffect(() => {
-		 if (debouncedValue === ""){
-				 dispatch(setPackName(null))
-				 return
-		 }else{
-				 dispatch(setPackName(debouncedValue))
-				 dispatch(getPacks())
-		 }
+				dispatch(setPackName(debouncedValue));
+				dispatch(packsThunks.getPacksWithParam());
 		}, [debouncedValue]);
 
 
+		useEffect(() => {
+				setValue(StateValue);
+		}, [StateValue]);
+
 		const onChangeHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-				setValue(e.currentTarget.value)
-		}
+				setValue(e.currentTarget.value);
+		};
 		return (
 			<Paper
 				component="form"
@@ -33,6 +34,7 @@ const SearchInput = () => {
 							<SearchIcon />
 					</IconButton>
 					<InputBase
+						value={value}
 						onChange={onChangeHandler}
 						sx={{ ml: 1, flex: 1 }}
 						placeholder="Provide your text"

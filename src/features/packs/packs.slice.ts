@@ -5,56 +5,69 @@ import { packsApi } from "features/packs/packs.api";
 const slice = createSlice({
 		name: "auth",
 		initialState: {
-				packs: {
-						cardPacks: []
-				},
-				MinMaxValue: [0, 110],
-				CurrentPackName: null,
-				isMyPacks: false
-
+				data: null,
+				packName: null,
+				minMaxValue: [0, 110],
+				userId: null,
+				sortMode: null,
+				pageCount: null,
+				currentPage: null
 		},
 		reducers: {
 				setMinMaxValue: (state, action) => {
-						state.MinMaxValue = action.payload;
+						state.minMaxValue = action.payload
 				},
 				setPackName: (state, action) => {
-						state.CurrentPackName = action.payload
+            state.packName = action.payload
 				},
 				setUserId: (state, action) => {
-						state.isMyPacks = action.payload
+						state.userId = action.payload
 				},
-				clearAll: (state) => {
-						state.MinMaxValue = [0, 110]
-						state.CurrentPackName = null
-						state.isMyPacks = false
+				setSortMode: (state, action) => {
+             state.sortMode = action.payload
+				},
+				setPageCount: (state, action) => {
+						state.pageCount = action.payload
+				},
+				setCurrentPage: (state, action) => {
+						state.currentPage = action.payload
 				}
 		},
 		extraReducers: builder => {
 				builder
-					.addCase(getPacks.fulfilled, (state, action) => {
-							if (action.payload)
-									state.packs = action.payload.packs;
+					.addCase(getPacksWithParam.fulfilled, (state, action) => {
+							state.data = action.payload.data;
+					})
+					.addCase(getDefaultPacks.fulfilled, (state, action) => {
+							state.data = action.payload.data;
 					});
 		}
 });
 
+export const {setMinMaxValue, setPackName, setUserId, setSortMode, setPageCount, setCurrentPage} = slice.actions;
 
-export const { setMinMaxValue, setPackName, setUserId, clearAll} = slice.actions;
+const getPacksWithParam = createAppAsyncThunk("getPacksWithParam/packs", async (arg, thunkAPI) => {
+    const {getState} = thunkAPI
+		let packs = getState().packs
+		const param = `${packs.packName ? `packName=${packs.packName}` : ``}
+		&min=${packs.minMaxValue[0]}&max=${packs.minMaxValue[1]}
+		${packs.userId ? `&user_id=${packs.userId}` : ``}${packs.sortMode ? `&` + packs.sortMode : ``}
+		${packs.pageCount ? `&pageCount=${packs.pageCount}` : ``}
+		${packs.currentPage ? `&page=${packs.currentPage}` : ``}`
 
-export const getPacks = createAppAsyncThunk("getPacks/packs", async (arg?: string, thunkAPI?: any) => {
-		let { getState } = thunkAPI;
-		let value = getState().packs.MinMaxValue;
-		let packName = getState().packs.CurrentPackName;
-		let userId = getState().packs.isMyPacks ? '6456438f2d452fbdaf721840' : ''
-		const params = {packName, min: value[0], max: value[1], user_id: userId}
-		try {
-						const res = await packsApi.getDefaultPacks(params);
-						return { packs: res.data };
-
-		} catch (e) {
-				return { packs: { cardPacks: [] } };
-		}
-
+		const response = await packsApi.getPacksWithParam(param);
+		return response;
 });
+
+const getDefaultPacks = createAppAsyncThunk("getDefaultPacks/packs", async () => {
+		const response = await packsApi.getDefaultPacks();
+		return response;
+});
+
+
+export const packsThunks = {
+		getDefaultPacks,
+		getPacksWithParam
+};
 
 export const packsReducer = slice.reducer;

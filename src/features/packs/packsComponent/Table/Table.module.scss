@@ -1,0 +1,28 @@
+.styledTableCellDown{
+  &:hover {
+      position: relative;
+      &:before {
+      content: '▼';
+      position: absolute;
+      background: none;
+      width: 35px;
+      height: 35px;
+      right: -35px;
+      bottom: -16px;
+    }
+  }
+}
+.styledTableCellUp{
+  &:hover {
+    position: relative;
+    &:before {
+      content: '▲';
+      position: absolute;
+      background: none;
+      width: 35px;
+      height: 35px;
+      right: -35px;
+      bottom: -16px;
+    }
+  }
+}
