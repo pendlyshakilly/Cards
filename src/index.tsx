@@ -9,9 +9,10 @@ import { BrowserRouter, createBrowserRouter, RouterProvider } from "react-router
 import { Register } from "features/auth/Register/Register";
 import { Login } from "features/auth/Login/Login";
 import { ForgotPassword } from "features/auth/ForgotPassword/ForgotPassword";
-import { CheckEmail } from "features/auth/CheckEmail/CheckEmail";
+
 import { CreateNewPassword } from "features/auth/CreateNewPassword/CreateNewPassword";
 import Profile from "features/profile/Profile";
+import { CheckEmail } from "features/auth/checkEmail/CheckEmail";
 
 
 const container = document.getElementById("root")!;

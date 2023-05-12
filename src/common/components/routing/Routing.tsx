@@ -5,8 +5,9 @@ import Profile from "features/profile/Profile";
 import { Login } from "features/auth/Login/Login";
 import { Register } from "features/auth/Register/Register";
 import { ForgotPassword } from "features/auth/ForgotPassword/ForgotPassword";
-import { CheckEmail } from "features/auth/CheckEmail/CheckEmail";
 import { CreateNewPassword } from "features/auth/CreateNewPassword/CreateNewPassword";
+import { CheckEmail } from "features/auth/checkEmail/CheckEmail";
+import Packs from "features/packs/packsComponent/Packs";
 
 export const Routing = () => {
 		return (
@@ -14,7 +15,7 @@ export const Routing = () => {
 					<Routes>
 							<Route element={<PrivateRoutes/>}>
 									<Route path='/' element={<h1>Home Page</h1>}  />
-									<Route path='/packs' element={''} />
+									<Route path='/packs' element={<Packs/>} />
 									<Route path='/profile' element={<Profile/>} />
 							</Route>
 							<Route path='/register' element={<Register/>}/>

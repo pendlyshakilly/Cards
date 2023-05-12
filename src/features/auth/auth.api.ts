@@ -1,5 +1,4 @@
 import { instance } from "common/api/common.api";
-import axios from "axios";
 
 export const authApi = {
 		register: (arg: ArgRegisterType1) => {

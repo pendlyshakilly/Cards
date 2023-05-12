@@ -84,7 +84,6 @@ const register = createAsyncThunk("auth/register", (arg: ArgRegisterType1, thunk
 
 const login = createAppAsyncThunk<{ profile: ProfileType, isAuth: boolean }, ArgLoginType>
 ("auth/login", async (arg, thunkAPI) => {
-		debugger
 		const res = await authApi.login(arg);
 		return { profile: res.data, isAuth: true };
 
@@ -102,7 +101,6 @@ const forgotPassword = createAppAsyncThunk<any, string>
 		};
 		const res = await authApi.forgotPassword(whereLetter);
 		dispatch(isAuthMe({ isAuth: true }));
-		console.log(res);
 		return { res };
 });
 
@@ -126,13 +124,11 @@ const updateDataProfile = createAppAsyncThunk<void, string>
 				avatar: "https//avatar-url.img" // url or base64
 		};
 		const res = await authApi.updateDataProfile(payload);
-		console.log(res);
 		await authApi.updateDataProfile(payload);
 });
 
 const authMeAPI = createAppAsyncThunk<{ profile: ProfileType, isAuth: boolean }, void>("auth/authMeAPI", async () => {
 		const res = await authApi.authMe();
-		console.log(res);
 		// await authApi.authMe();
 		return { profile: res.data, isAuth: true };
 
@@ -155,7 +151,7 @@ export const authThunks = {
 //   dispatch(isAuthMe({isAuth:true}))
 //   authApi.authMe({})
 //     .then((res)=>{
-//       debugger
+//
 //       console.log(res);
 //       dispatch(isAuthMe({isAuth:true}))
 //     })
