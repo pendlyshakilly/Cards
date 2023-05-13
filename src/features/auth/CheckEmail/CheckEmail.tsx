@@ -4,8 +4,11 @@ import s from "./styles.module.css";
 import image from "assets/img/letter.png";
 import { ButtonForAuth } from "features/auth/ButtonForAuth/ButtonForAuth";
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "app/hooks";
+
 import { valueEmail } from "features/auth/ForgotPassword/ForgotPassword";
+import { useAppSelector } from "common/hooks";
+
+
 
 export const CheckEmail = () => {
 

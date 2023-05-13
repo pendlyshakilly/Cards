@@ -4,9 +4,11 @@ import s from "./styles.module.css";
 import { useForm } from "react-hook-form";
 import FormPassword from "features/auth/form/FormPassword";
 import { ButtonForAuth } from "features/auth/ButtonForAuth/ButtonForAuth";
-import { useAppDispatch, useAppSelector } from "app/hooks";
+
 import { useNavigate, useParams } from "react-router-dom";
 import { authThunks } from "features/auth/auth.slice";
+import { useAppSelector } from "common/hooks/useAppSelector";
+import { useAppDispatch } from "common/hooks/useAppDispatch";
 
 export const CreateNewPassword = () => {
 		const dispatch = useAppDispatch();

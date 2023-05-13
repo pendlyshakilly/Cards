@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState, MouseEvent } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import Input from "@mui/material/Input";
@@ -8,31 +8,27 @@ import s from "./Profile.module.css";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import LogoutIcon from "@mui/icons-material/Logout";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
-import { useAppDispatch, useAppSelector } from "app/hooks";
+
 import { authThunks } from "features/auth/auth.slice";
+import { useAppDispatch } from "common/hooks/useAppDispatch";
+import { useAppSelector } from "common/hooks/useAppSelector";
 
 const Profile = () => {
 		const dispatch = useAppDispatch();
+
 		const navigate = useNavigate();
 		const isAuth = useAppSelector(state => state.auth.isAuth);
 		const profile = useAppSelector(state => state.auth.profile);
 		const [editMode, setEditMode] = useState(false);
 		const [name, setName] = useState(profile?.name as string);
-
+debugger
 		useEffect(() => {
-				debugger
 				if (profile === null) {
 						return navigate("/login");
 				}
 		}, [profile]);
-		// useEffect(() => {
-		//
-		// 		dispatch(authThunks.authMeAPI()).then((res) => {
-		// 				console.log(res);
-		// 		});
-		// }, []);
 
 
 		const onClickHandler = () => {

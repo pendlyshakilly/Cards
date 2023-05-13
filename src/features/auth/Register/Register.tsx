@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from "app/hooks";
+
 import { authThunks } from "features/auth/auth.slice";
 import s from "features/auth/Register/styles.module.css";
 import Button from "@mui/material/Button";
@@ -8,6 +8,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom";
 import FormEmail from "features/auth/form/FormEmail";
 import FormPassword from "features/auth/form/FormPassword";
+import { useAppDispatch, useAppSelector } from "common/hooks";
+import { toast } from "react-toastify";
 
 
 type IFormInput = {
@@ -37,23 +39,21 @@ export const Register = () => {
 				}
 				setError(false);
 				e && e.preventDefault();
-				console.log(data);
 				let { email, password } = data;
 				let payload = {
 						email,
 						password
 				};
+				dispatch(authThunks.register(payload))
+					.unwrap()
+					.then(()=>{
+							toast.success('You have successfully registered');
+							navigate('/login')
+					});
 				reset();
-				dispatch(authThunks.register(payload));
-
-				// isAuth && navigate("/login");
 		};
 
-		// const onSubmitApi = () => {
-		// 		dispatch(isAuthTC());
-		// 		isAuth && navigate("/login");
-		// };
-		isAuth && navigate('/login')
+
 		return (
 			<div className={s.container}>
 					<Paper className={s.Paper}>
