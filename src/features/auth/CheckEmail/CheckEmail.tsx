@@ -3,7 +3,11 @@ import React from "react";
 import s from "./styles.module.css";
 import { ButtonForAuth } from "features/auth/ButtonForAuth/ButtonForAuth";
 import { useNavigate } from "react-router-dom";
+
 import { valueEmail } from "features/auth/ForgotPassword/ForgotPassword";
+import { useAppSelector } from "common/hooks";
+
+
 
 export const CheckEmail = () => {
 		const navigate = useNavigate()

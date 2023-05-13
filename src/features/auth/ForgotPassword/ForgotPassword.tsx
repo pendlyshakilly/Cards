@@ -6,7 +6,9 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ButtonForAuth } from "features/auth/ButtonForAuth/ButtonForAuth";
 import { authThunks } from "features/auth/auth.slice";
-import { useAppDispatch, useAppSelector } from "app/hooks";
+import { useAppSelector } from "common/hooks";
+import { useAppDispatch } from "common/hooks";
+
 
 export let valueEmail: string;
 export const ForgotPassword = () => {

@@ -1,34 +1,50 @@
 import { useEffect } from "react";
+
+
+import { Link, Navigate, useNavigate } from "react-router-dom";
+
 import { useAppDispatch, useAppSelector } from "app/hooks";
 import { Link, Navigate } from "react-router-dom";
+
 import { authThunks } from "features/auth/auth.slice";
 import { Routing } from "common/components/routing/Routing";
 import { HeaderBar } from "common/components/HeaderBar/HeaderBar";
+import { useAppSelector } from "common/hooks/useAppSelector";
+import { useAppDispatch } from "common/hooks/useAppDispatch";
+import CircularProgress from "@mui/material/CircularProgress";
+import LinearProgress  from "@mui/material/LinearProgress";
 
 
 function App() {
+    console.log('APP');
+
   const isLoading = useAppSelector((state) => state.app.isLoading);
-  // const navigate = useNavigate()
+
+ const navigate = useNavigate()
   const dispatch = useAppDispatch();
-  //
-  // useEffect(() => {
-  //  dispatch(authThunks.authMeAPI()).then(()=>{
-  //  return   navigate('/profile')
-  //  },)
-  //
-  // }, []);
+
   useEffect(() => {
-    dispatch(authThunks.authMeAPI()).then((res) => {
-     return <Navigate to={'/profile'}/>
+    dispatch(authThunks.authMeAPI())
+      .then((res) => {
+     return navigate('/profile')
     });
   }, []);
+
+
+
+
+
+    //Login test
+  //test github
 
 
   return (
     <div className="App">
       <HeaderBar/>
-        <Routing/>
-      {isLoading && <h1>Loader...</h1>}
+      {isLoading && <LinearProgress style={{color:"black", margin:''}} color="secondary" /> }
+      <Routing/>
+
+
       {<Link to={'/register'}> Register</Link>}
       {<Link to={'/login'}> login</Link>}
       {<Link to={'/forgot-password'}> forgot</Link>}
