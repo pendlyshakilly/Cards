@@ -8,6 +8,9 @@ import { ButtonForAuth } from "features/auth/ButtonForAuth/ButtonForAuth";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "common/hooks/useAppSelector";
 import CircularProgress from "@mui/material/CircularProgress";
+import { ButtonForAuth } from "features/auth/ButtonForAuth/ButtonForAuth";
+import { useAppSelector } from "app/hooks";
+import { useNavigate } from "react-router-dom";
 
 export const HeaderBar = () => {
 		// debugger
@@ -53,7 +56,7 @@ export const HeaderBar = () => {
 					<AppBar position="static">
 							<Toolbar style={{backgroundColor:'white'}}>
 									<Typography variant="h6" component="div"  sx={{ flexGrow: 1 }}>
-												<img src={logo} alt="logotype" />
+												<img src={'logo'} alt="logotype" />
 									</Typography>
 									{ isAuth ? <button>logOut</button> : <ButtonForAuth title={"sign in"} callback={onCLickSignIn} />}
 							</Toolbar>

@@ -5,9 +5,19 @@ import { store } from "app/store";
 import App from "app/App";
 import reportWebVitals from "./reportWebVitals";
 import "./index.css";
+
 import { BrowserRouter } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 import { GlobalError } from "common/GlobalError/GlobalError";
+
+import { BrowserRouter, createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Register } from "features/auth/Register/Register";
+import { Login } from "features/auth/Login/Login";
+import { ForgotPassword } from "features/auth/ForgotPassword/ForgotPassword";
+
+import { CreateNewPassword } from "features/auth/CreateNewPassword/CreateNewPassword";
+import Profile from "features/profile/Profile";
+import { CheckEmail } from "features/auth/checkEmail/CheckEmail";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);

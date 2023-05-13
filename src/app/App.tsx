@@ -1,6 +1,11 @@
 import { useEffect } from "react";
 
+
 import { Link, Navigate, useNavigate } from "react-router-dom";
+
+import { useAppDispatch, useAppSelector } from "app/hooks";
+import { Link, Navigate } from "react-router-dom";
+
 import { authThunks } from "features/auth/auth.slice";
 import { Routing } from "common/components/routing/Routing";
 import { HeaderBar } from "common/components/HeaderBar/HeaderBar";
@@ -12,6 +17,7 @@ import LinearProgress  from "@mui/material/LinearProgress";
 
 function App() {
     console.log('APP');
+
   const isLoading = useAppSelector((state) => state.app.isLoading);
 
  const navigate = useNavigate()
@@ -27,8 +33,10 @@ function App() {
 
 
 
+
     //Login test
   //test github
+
 
   return (
     <div className="App">
@@ -43,8 +51,7 @@ function App() {
       {<Link to={'/check-email'}> checkMail</Link>}
       {<Link to={'/create-new-password'}> CreatePass</Link>}
       {<Link to={'/profile'}> Profile</Link>}
-      {/*<Counter />*/}
- {/* <Register/>*/}
+        {<Link to={'/packs'}>packs</Link>}
 
     </div>
   );

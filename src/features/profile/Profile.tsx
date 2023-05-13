@@ -19,7 +19,6 @@ const Profile = () => {
 		const dispatch = useAppDispatch();
 
 		const navigate = useNavigate();
-		const isAuth = useAppSelector(state => state.auth.isAuth);
 		const profile = useAppSelector(state => state.auth.profile);
 		const [editMode, setEditMode] = useState(false);
 		const [name, setName] = useState(profile?.name as string);
@@ -48,7 +47,7 @@ debugger
 		return (
 			<div className={s.Container}>
 
-					<Link to={"/register"} className={s.Link}><KeyboardBackspaceIcon /> Back to packs list</Link>
+					<Link to={"/packs"} className={s.Link}><KeyboardBackspaceIcon /> Back to packs list</Link>
 					<Paper className={s.Paper}>
 							<h1 className={s.title}>
 									<span>Personal Information</span>

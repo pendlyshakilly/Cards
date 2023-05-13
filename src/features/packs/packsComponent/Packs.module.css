@@ -1,0 +1,10 @@
+.PacksContainer{
+    width: 95%;
+    min-height: 95vh;
+    margin: 10px;
+}
+.Container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

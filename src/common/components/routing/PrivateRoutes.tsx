@@ -4,7 +4,11 @@ import { useAppSelector } from "common/hooks/useAppSelector";
 
 
 export const PrivateRoutes = () => {
+
 		console.log('PrivateRoutes');
+		const isAuth = useAppSelector(state => state.auth.isAuth)
+
+
 		const isAuth = useAppSelector(state => state.auth.isAuth)
 
 		let auth = {'token':isAuth}
