@@ -1,9 +1,9 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent } from "react";
 import { Pagination, PaginationItem, Stack } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { useAppDispatch, useAppSelector } from "app/hooks";
 import { packsThunks, setCurrentPage, setDisabledMode } from "features/packs/packs.slice";
+import { useAppDispatch, useAppSelector } from "common/hooks";
 
 const CustomPagination = () => {
 		const dispatch = useAppDispatch();

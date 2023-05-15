@@ -6,10 +6,11 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { useAppDispatch, useAppSelector } from "app/hooks";
+
 import { useEffect, useState } from "react";
 import s from "./Table.module.scss";
 import { packsThunks, setSortMode } from "features/packs/packs.slice";
+import { useAppDispatch, useAppSelector } from "common/hooks";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
 		[`&.${tableCellClasses.head}`]: {

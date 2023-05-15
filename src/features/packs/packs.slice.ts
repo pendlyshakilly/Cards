@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createAppAsyncThunk } from "common/utils/withTyeps";
+
 import { packsApi } from "features/packs/packs.api";
+import { createAppAsyncThunk } from "common/utils";
 
 
 const getPacksWithParam = createAppAsyncThunk("getPacksWithParam/packs", async (arg, thunkAPI) => {

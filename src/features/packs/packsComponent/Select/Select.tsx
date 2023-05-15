@@ -1,6 +1,6 @@
 import { ChangeEvent } from "react";
-import { useAppDispatch } from "app/hooks";
 import { packsThunks, setCurrentPage, setPageCount } from "features/packs/packs.slice";
+import { useAppDispatch } from "common/hooks";
 
 export default function CustomSelect() {
 		const dispatch = useAppDispatch();

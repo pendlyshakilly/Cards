@@ -5,8 +5,8 @@ import { Paper } from "@mui/material";
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
 import RangeSlider from "features/packs/packsComponent/RangeSlider/ReangeSlider";
 import s from "./SearchNav.module.css";
-import { useAppDispatch, useAppSelector } from "app/hooks";
 import { packsThunks, setDisabledMode, setMinMaxValue, setPackName, setUserId } from "features/packs/packs.slice";
+import { useAppDispatch, useAppSelector } from "common/hooks";
 
 
 const SearchNav = () => {

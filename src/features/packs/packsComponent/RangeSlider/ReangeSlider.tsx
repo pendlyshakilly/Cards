@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { Slider } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "app/hooks";
+
 import { packsThunks, setDisabledMode, setMinMaxValue } from "features/packs/packs.slice";
+import { useAppDispatch, useAppSelector } from "common/hooks";
 
 
 function valuetext(value: number) {

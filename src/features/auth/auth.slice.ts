@@ -77,6 +77,7 @@ const slice = createSlice({
 
 					})
 
+
 		}
 });
 
@@ -97,15 +98,9 @@ const register = createAppAsyncThunk<void, ArgRegisterType1>
 
 const login = createAppAsyncThunk<{ profile: ProfileType, }, ArgLoginType>
 ("auth/login", async (arg, thunkAPI) => {
-
 		return thunkTryCatch(thunkAPI, async () => {
 				const res = await authApi.login(arg);
 				return await { profile: res.data, };
-
-		const res = await authApi.login(arg);
-		return { profile: res.data, isAuth: true };
-
-
 
 		});
 });
@@ -118,8 +113,7 @@ const forgotPassword = createAppAsyncThunk<any, string>
 						email: arg,
 						from: "test-front-admin <ai73a@yandex.by>",
 						message: `<div style="background-color: cornflowerblue; padding: 15px">password recovery link: 
-											<a href="http://localhost:3000/create-new-password/$token$">link</a></div>`
-
+                      <a href="http://localhost:3000/create-new-password/$token$">link</a></div>`
 				};
 				const res = await authApi.forgotPassword(whereLetter);
 				dispatch(isAuthMe({ isAuth: true }));
@@ -127,12 +121,7 @@ const forgotPassword = createAppAsyncThunk<any, string>
 				return { res };
 		});
 
-		};
-		const res = await authApi.forgotPassword(whereLetter);
-		dispatch(isAuthMe({ isAuth: true }));
-		return { res };
 });
-
 const createPassword = createAppAsyncThunk<void, CreatePassType>
 ("auth/createPassword", async (arg, thunkAPI) => {
 		return thunkTryCatch(thunkAPI, async () => {
@@ -156,7 +145,6 @@ const logOut = createAppAsyncThunk<{ isAuth: boolean}, void>
 
 const updateDataProfile = createAppAsyncThunk<void, string>
 ("auth/updateDataProfile", async (arg, thunkAPI) => {
-
 		return thunkTryCatch(thunkAPI, async () => {
 				const payload = {
 						name: arg,
@@ -177,25 +165,11 @@ const authMeAPI = createAppAsyncThunk<{ profile: ProfileType, isAuth: boolean },
 		});
 
 
-		const payload = {
-				name: arg,
-				avatar: "https//avatar-url.img" // url or base64
-		};
-		const res = await authApi.updateDataProfile(payload);
-		await authApi.updateDataProfile(payload);
-});
-
-const authMeAPI = createAppAsyncThunk<{ profile: ProfileType, isAuth: boolean }, void>("auth/authMeAPI", async () => {
-		const res = await authApi.authMe();
-		// await authApi.authMe();
-		return { profile: res.data, isAuth: true };
-
-
 });
 
 export const authReducer = slice.reducer;
 export const { isAuthMe } = slice.actions;
- export const authAction = slice.actions;
+export const authAction = slice.actions;
 export const authThunks = {
 		register,
 		login,
@@ -210,7 +184,7 @@ export const authThunks = {
 //   dispatch(isAuthMe({isAuth:true}))
 //   authApi.authMe({})
 //     .then((res)=>{
-//
+//       debugger
 //       console.log(res);
 //       dispatch(isAuthMe({isAuth:true}))
 //     })

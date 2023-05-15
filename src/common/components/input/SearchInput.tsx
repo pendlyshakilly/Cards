@@ -2,8 +2,8 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import { IconButton, InputBase, Paper } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import useDebounce from "common/utils/UseDebounce";
-import { useAppDispatch, useAppSelector } from "app/hooks";
 import { packsThunks, setPackName } from "features/packs/packs.slice";
+import { useAppDispatch, useAppSelector } from "common/hooks";
 
 
 const SearchInput = () => {

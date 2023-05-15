@@ -1,18 +1,10 @@
 import { useEffect } from "react";
-
-
-import { Link, Navigate, useNavigate } from "react-router-dom";
-
-import { useAppDispatch, useAppSelector } from "app/hooks";
-import { Link, Navigate } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
 import { authThunks } from "features/auth/auth.slice";
 import { Routing } from "common/components/routing/Routing";
 import { HeaderBar } from "common/components/HeaderBar/HeaderBar";
-import { useAppSelector } from "common/hooks/useAppSelector";
-import { useAppDispatch } from "common/hooks/useAppDispatch";
-import CircularProgress from "@mui/material/CircularProgress";
-import LinearProgress  from "@mui/material/LinearProgress";
+import { useAppDispatch, useAppSelector } from "common/hooks";
+import LinearProgress from "@mui/material/LinearProgress";
 
 
 function App() {

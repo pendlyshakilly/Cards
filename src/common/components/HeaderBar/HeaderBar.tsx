@@ -6,17 +6,13 @@ import Typography from "@mui/material/Typography";
 import logo from "assets/img/logo.png";
 import { ButtonForAuth } from "features/auth/ButtonForAuth/ButtonForAuth";
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "common/hooks/useAppSelector";
-import CircularProgress from "@mui/material/CircularProgress";
-import { ButtonForAuth } from "features/auth/ButtonForAuth/ButtonForAuth";
-import { useAppSelector } from "app/hooks";
-import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "common/hooks";
+
 
 export const HeaderBar = () => {
 		// debugger
 		const isAuth = useAppSelector(state => state.auth.isAuth)
 		const navigate = useNavigate()
-		const isInitialized = useAppSelector(state => state.auth.isInitialized)
 
 
 		const onCLickSignIn = () => {
